@@ -37,12 +37,16 @@ while(True):
             played_list.append(row_parsed)
     
         raw = played_list[0][1].replace("\'","\\\'")
-        artist = raw.split('-')[0][:-1]
 
+        if ' - ' in raw:
+            artist = raw.split(' - ')[0]
 
-        track = raw.split('-')[1][1:]
-        if track[len(track)-4:].isnumeric():
-            track = track[:-5]
+            track = raw.split(' - ')[1]
+            if track[len(track)-4:].isnumeric():
+                track = track[:-5]
+        else:
+            artist = ''
+            track = ''
 
         now = datetime.now()
         datetime_played = now.strftime("%Y-%m-%d ") + played_list[0][0]
